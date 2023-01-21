@@ -1,10 +1,9 @@
 export interface IUser {
-  login: string,
-  email?: string,
-  psw: string,
-  cardNumber?: string,
-  newPsw?: string,
-  rptNewPsw?: string
+  login: string;
+  email?: string;
+  psw: string;
+  cardNumber?: string;
+  id?: string;
 }
 export interface IStatisticUser {
   id: number,
@@ -38,5 +37,3 @@ export interface ICustomStatisticUser {
   city: string,
   street: string
 }
-
-

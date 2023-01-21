@@ -1,52 +1,47 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, observable, Subject, subscribeOn} from "rxjs";
+import {Observable, BehaviorSubject, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ObservableExampleService {
-
-  private myBehaviorSubject = new BehaviorSubject<string>('some data of Behavior subject')
+  private myBehaviorSubject = new BehaviorSubject<string>('some data of Behavior subject');
   private mySubject = new Subject<string>();
 
   private myObservable = new Observable<string>((subscriber => {
-    subscriber.next('sync value');
+    subscriber.next('sync someValue');
     setTimeout(() => {
-      subscriber.next('some value');
-      }, 3000)
-  }));
+      subscriber.next('someValue');
+    }, 3000)
+  }))
 
   constructor() { }
 
-  initObservable() : void {
-    const observable = new Observable ((subscriber =>{
+  initObservable(): void{
+    const observable = new Observable ((subscriber => {
       subscriber.next(4);
       subscriber.next(5);
-      setTimeout(()=>{
-        subscriber.next("asyncData");
-        subscriber.error("some error");
-      })
+      setTimeout(() => {
+        subscriber.next('asyncData');
+        subscriber.error('some error there')
+      }, 3000)
     }))
-   const sub =  observable.subscribe((data)=>{
-      console.log('observable',data)
-    },
-      (error =>{console.log('error',error)
-      }))
-    sub.unsubscribe()
+    observable.subscribe((data) => {
+      console.log('observable data', data)
+    }, (error => {
+       console.log('error', error)
+    }))
   }
 
   getObservable(): Observable<string> {
-    return    this.myObservable;
-}
-
-  getSubject(): Subject <string> {
-    return    this.mySubject;
+    return this.myObservable;
   }
 
-  getBehaviorSubject(): BehaviorSubject <string> {
+  getSubject(): Subject<string> {
+    return this.mySubject;
+  }
+
+  getBehaviorSubject(): BehaviorSubject<string> {
     return this.myBehaviorSubject;
   }
-
 }
-
-

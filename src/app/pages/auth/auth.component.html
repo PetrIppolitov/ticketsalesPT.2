@@ -1,16 +1,13 @@
-<div class="d-flex flex-column ">
+<div class="d-flex">
   <p-tabView>
-    <p-tabPanel [cache]="isTabCaching" header="Авторизация">
-      <ng-template pTemplate="content">
-        <app-authorization></app-authorization>
-      </ng-template>
+    <p-tabPanel header="Авторизация">
+      <app-authorization></app-authorization>
     </p-tabPanel>
     <p-tabPanel header="Регистрация">
-        <app-registration></app-registration>
+      <app-registration></app-registration>
     </p-tabPanel>
 
   </p-tabView>
 
 </div>
-
 <p-toast position="top-left"></p-toast>

@@ -1,53 +1,44 @@
 import { Injectable } from '@angular/core';
-import {IUser} from "../../models/users";
+import {IUser} from '../../../app/models/users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private user: IUser | null;
-  private  token: string | null;
+  private token: string | null;
 
-  constructor() { }
+  constructor() {}
 
-  getUser(): IUser| null {
-   return this.user;
+  getUser(): IUser | null{
+    return this.user
   };
-
-  setUser(user: IUser):void {
-   this.user = user ;
+  setUser(user: IUser) {
+    this.user = user;
   };
-
-
-
-  getToken(): string | null {
-    return this.token;
-  };
-
-  setToken(token : string) : void {
+  setToken(token: string): void {
     this.token = token;
-  };
-
-
-  setInStore(token: string) {
-    window.localStorage.setItem('myToken' ,token)
   }
-  getInStore(){
-    return window.localStorage.getItem('myToken')
+  getToken(): string | null{
+    return this.token;
   }
-
-  getTokenAll() {
-    if(!this.token){
-      return this.getInStore()
+  setToStore (token: string) {
+    window.localStorage.setItem('userToken', token)
+  }
+  getFromStore() {
+    return window.localStorage.getItem('userToken');
+  }
+  getAllToken(): string | null {
+    if (this.token) {
+       return this.token
+    } else {
+      return this.getFromStore()
     }
-    return this.token
   }
 
-  removeUser():void{
-    this.token = null;
-    this.user= null;
-    window.localStorage.removeItem('myToken')
+  removeUser(): void {
+   this.user = null;
+   this.token = null;
+    window.localStorage.removeItem('userToken')
   }
-
 }
-

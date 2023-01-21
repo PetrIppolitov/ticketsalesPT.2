@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ITour} from "../../models/tours";
-import {TicketsRestService} from "../../services/rest/tickets-rest.service";
-import {IMenuType} from "../../models/menuType";
+import {TicketsService} from '../../services/tickets/tickets.service';
+import {ITour} from '../../models/tours';
+import {IMenuType} from '../../models/menuType'
 
 
 @Component({
@@ -10,18 +10,17 @@ import {IMenuType} from "../../models/menuType";
   styleUrls: ['./tickets.component.scss']
 })
 export class TicketsComponent implements OnInit {
-tickets: ITour[];
-selectedType: IMenuType ;
+  tickets: ITour[];
+  selectedType: IMenuType
+  constructor(private ticketService: TicketsService) { }
 
+  ngOnInit(): void {
+    this.ticketService.getTickets().subscribe((data: ITour[]) => {
+      this.tickets = data;
+    })
+  }
   updateSelectedType(ev: IMenuType): void {
     this.selectedType = ev;
   }
-constructor(private ticketsRestService:  TicketsRestService) { }
 
-  ngOnInit(): void {
-
-this.ticketsRestService.getTickets().subscribe((data)=>{
-  this.tickets=data;
-});
-    }
 }

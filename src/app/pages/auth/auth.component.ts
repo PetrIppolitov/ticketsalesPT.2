@@ -5,12 +5,12 @@ import {AuthService} from "../../services/auth/auth.service";
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private  authService: AuthService) { }
-isTabCaching: boolean = false;
+  constructor(private authService: AuthService) { }
+
   ngOnInit(): void {
   }
 

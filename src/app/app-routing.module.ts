@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {AppComponent} from "./app.component";
+
+
 
 const routes: Routes = [
   {
@@ -10,13 +13,14 @@ const routes: Routes = [
     path: 'tickets',
     loadChildren: ()  => import('./pages/tickets/tickets.module').then(m => m.TicketsModule)
   },
-
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
+  },
   { path: '**',
-    redirectTo: 'auth'
+   redirectTo: 'auth'
   }
-
 ];
-
 
 
 @NgModule({

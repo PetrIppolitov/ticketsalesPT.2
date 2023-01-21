@@ -10,30 +10,24 @@ import {FormsModule} from "@angular/forms";
 import {CheckboxModule} from 'primeng/checkbox';
 import { RegistrationComponent } from './registration/registration.component';
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from "primeng/api";
-import {ButtonModule} from "primeng/button";
-
+import {MessageService} from 'primeng/api';
 
 @NgModule({
-    declarations: [
-        AuthorizationComponent,
-        AuthComponent,
-        RegistrationComponent,
+  declarations: [
+    AuthorizationComponent,
+    AuthComponent,
+    RegistrationComponent,
 
-    ],
-    imports: [
-        CommonModule,
-        AuthRoutingModule,
-        TabViewModule,
-        InputTextModule,
-        FormsModule,
-        CheckboxModule,
-        ToastModule,
-        ButtonModule
-    ],
-    exports: [
-        AuthorizationComponent
-    ],
-    providers: [MessageService]
+  ],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    TabViewModule,
+    InputTextModule,
+    FormsModule,
+    CheckboxModule,
+    ToastModule
+  ],
+  providers: [MessageService]
 })
-export class AuthModule  { }
+export class AuthModule { }

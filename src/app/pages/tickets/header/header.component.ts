@@ -1,8 +1,8 @@
-import {Component, Input, OnDestroy, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
-import {MenuItem} from "primeng/api";
-import {UserService} from "../../../services/user/user.service";
-import {IUser} from "../../../models/users";
-import {IMenuType} from "../../../models/menuType";
+import { Component, OnInit, OnDestroy, Input, SimpleChanges } from '@angular/core';
+import {MenuItem} from 'primeng/api';
+import {UserService} from '../../../services/user/user.service';
+import {IUser} from '../../../models/users';
+import {IMenuType} from '../../../models/menuType'
 
 @Component({
   selector: 'app-header',
@@ -10,20 +10,19 @@ import {IMenuType} from "../../../models/menuType";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  items: MenuItem[];
-  time: Date;
-  user: IUser | null;
-  private timeInterval: number;
-  private settingsActive = false;
-
   @Input() menuType: IMenuType;
+   items: MenuItem[];
+   time: Date;
+   user: IUser | null;
+   userName: string;
+   private settingsActive = false;
 
-  constructor(private userService: UserService) {
-  }
+   private timerInterval: number;
 
+  constructor(
+    private userService: UserService) {}
 
   ngOnInit(): void {
-
     this.items = [
       {
         label: 'Билеты',
@@ -32,46 +31,48 @@ export class HeaderComponent implements OnInit, OnDestroy {
       {
         label: 'Выйти',
         routerLink: ['/auth'],
-        command: (click) => {
-        this.userService.removeUser()
+        command: () => {
+          this.userService.removeUser()
         }
-      },
-    ];
-    this.timeInterval = window.setInterval(() => {
-      this.time = new Date();
-    }, 1000)
-    this.user = this.userService.getUser();
 
+      }
+      ];
+
+    this.timerInterval = window.setInterval(() => {
+      this.time = new Date();
+    }, 1000);
+    this.user = this.userService.getUser();
+    //const authUser: IUser  = this.userService.getUser();
+    //this.user = authUser;
+    //this.userName = authUser.login
   }
 
-  ngOnDestroy(): void {
-    if (this.timeInterval) {
-      window.clearInterval(this.timeInterval);
+  ngOnDestroy(): void{
+    if(this.timerInterval) {
+      window.clearInterval(this.timerInterval);
     }
   }
   ngOnChanges(ev: SimpleChanges): void {
-    this.settingsActive = this.menuType?.type === "extended";
-    this.items = this.initMenuItems();
+    if (ev['menuType']) {
+      this.settingsActive = this.menuType?.type === "extended";
+    this.items = this.initMenuItems();}
   }
-
-  initMenuItems(): MenuItem[] {
+  initMenuItems():MenuItem[] {
     return [
       {
         label: 'Билеты',
-        routerLink: ['tickets-list']
+        routerLink:['tickets-list']
       },
       {
         label: 'Настройки',
-        routerLink: ['settings'],
+        routerLink:['settings'],
         visible: this.settingsActive
       },
       {
         label: 'Выйти',
-        routerLink: ['/auth']
+        routerLink:['/auth']
       },
 
     ];
   }
-
 }
-
